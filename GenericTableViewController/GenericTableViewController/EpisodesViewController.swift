@@ -10,14 +10,15 @@ struct Episode {
 	var title: String
 }
 
-class EpisodesViewController: UITableViewController {
+class EpisodesViewController<Item>: UITableViewController {
 	private let reuseIdentifier = "Cell"
+	private let configure: (UITableViewCell, Item) -> ()
+	private var items: [Item] = []
 
-	private var episodes: [Episode] = []
-
-	init (episodes: [Episode]) {
+	init (items: [Item], configure: @escaping (UITableViewCell, Item) -> ()) {
+		self.configure = configure
+		self.items = items
 		super.init(style: .plain)
-		self.episodes = episodes
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -29,13 +30,13 @@ class EpisodesViewController: UITableViewController {
 	}
 
 	override func tableView (_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return episodes.count
+		return items.count
 	}
 
 	override func tableView (_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-		let item = episodes[indexPath.row]
-		cell.textLabel?.text = item.title
+		let item = items[indexPath.row]
+		configure(cell, item)
 		return cell
 	}
 }
