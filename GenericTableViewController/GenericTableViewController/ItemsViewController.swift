@@ -10,7 +10,7 @@ struct Episode {
 	var title: String
 }
 
-class EpisodesViewController<Item>: UITableViewController {
+class ItemsViewController<Item>: UITableViewController {
 	private let reuseIdentifier = "Cell"
 	private let configure: (UITableViewCell, Item) -> ()
 	private var items: [Item] = []
