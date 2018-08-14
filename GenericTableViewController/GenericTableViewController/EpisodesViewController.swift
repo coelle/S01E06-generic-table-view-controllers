@@ -11,9 +11,18 @@ struct Episode {
 }
 
 class EpisodesViewController: UITableViewController {
-	let reuseIdentifier = "Cell"
+	private let reuseIdentifier = "Cell"
 
-	var episodes: [Episode] = []
+	private var episodes: [Episode] = []
+
+	init (episodes: [Episode]) {
+		super.init(style: .plain)
+		self.episodes = episodes
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	override func viewDidLoad () {
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
