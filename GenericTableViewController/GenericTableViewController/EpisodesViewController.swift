@@ -16,11 +16,6 @@ class EpisodesViewController: UITableViewController {
 	var episodes: [Episode] = []
 
 	override func viewDidLoad () {
-		episodes = [
-			Episode(title: "First Episode"),
-			Episode(title: "Second Episode"),
-			Episode(title: "Third Episode")
-		]
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
 	}
 
