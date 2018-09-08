@@ -24,20 +24,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application (_ application: UIApplication,
 	                  didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-		let rootVC = ItemsViewController(items: sampleEpisodes, configure: {
-			cell, episode in
-			cell.textLabel?.text = episode.title
-		})
-
 		let seasonsVC = ItemsViewController(items: sampleSeasons,
 			configure: {
 				(cell: SeasonCell, season) in
 				cell.textLabel?.text = season.title
 				cell.detailTextLabel?.text = "\(season.number)"
 			})
+		seasonsVC.title = "Seasons"
+		let nc = UINavigationController(rootViewController: seasonsVC)
+
+		seasonsVC.didSelect = { (season) in
+			let episodesVC = ItemsViewController(items: self.sampleEpisodes, configure: {
+				cell, episode in
+				cell.textLabel?.text = episode.title
+			})
+			episodesVC.title = season.title
+			nc.pushViewController(episodesVC, animated: true)
+		}
 
 		window = UIWindow(frame: UIScreen.main.bounds)
-		window?.rootViewController = seasonsVC
+		window?.rootViewController = nc
 		window?.makeKeyAndVisible()
 		return true
 	}

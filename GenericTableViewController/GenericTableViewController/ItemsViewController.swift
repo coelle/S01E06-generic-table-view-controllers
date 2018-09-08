@@ -15,11 +15,12 @@ struct Season {
 	var title: String
 }
 
-class ItemsViewController<Item, Cell:UITableViewCell>: UITableViewController {
+class ItemsViewController<Item, Cell: UITableViewCell>: UITableViewController {
 	private let reuseIdentifier = "Cell"
 	private let configure: (Cell, Item) -> ()
 	private var items: [Item] = []
 
+	var didSelect: (Item) -> () = { _ in }
 
 	init (items: [Item],
 	      configure: @escaping (Cell, Item) -> ()) {
@@ -34,6 +35,11 @@ class ItemsViewController<Item, Cell:UITableViewCell>: UITableViewController {
 
 	override func viewDidLoad () {
 		tableView.register(Cell.self, forCellReuseIdentifier: reuseIdentifier)
+	}
+
+	override func tableView (_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let item = items[indexPath.row]
+		didSelect(item)
 	}
 
 	override func tableView (_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
