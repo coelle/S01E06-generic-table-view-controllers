@@ -29,6 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			cell.textLabel?.text = episode.title
 		})
 
+		let seasonsVC = ItemsViewController(items: sampleSeasons,
+			configure: {
+				cell, season in
+				cell.textLabel?.text = "\(season.number)"
+			})
+
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.rootViewController = rootVC
 		window?.makeKeyAndVisible()
