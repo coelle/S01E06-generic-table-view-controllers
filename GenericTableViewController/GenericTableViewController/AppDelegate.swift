@@ -15,6 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		Episode(title: "Second Episode"),
 		Episode(title: "Third Episode")
 	]
+	let sampleSeasons = [
+		Season(number: 1, title: "Season One"),
+		Season(number: 2, title: "Season Two"),
+		Season(number: 3, title: "Season Three")
+	]
 
 
 	func application (_ application: UIApplication,
