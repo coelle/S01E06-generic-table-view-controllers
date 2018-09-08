@@ -30,13 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		})
 
 		let seasonsVC = ItemsViewController(items: sampleSeasons,
+			cellClass: SeasonCell.self,
 			configure: {
 				cell, season in
-				cell.textLabel?.text = "\(season.number)"
+				cell.textLabel?.text = season.title
+				cell.detailTextLabel?.text = "\(season.number)"
 			})
 
 		window = UIWindow(frame: UIScreen.main.bounds)
-		window?.rootViewController = rootVC
+		window?.rootViewController = seasonsVC
 		window?.makeKeyAndVisible()
 		return true
 	}

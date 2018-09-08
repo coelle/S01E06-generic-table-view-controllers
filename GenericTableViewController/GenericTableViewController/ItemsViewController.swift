@@ -17,11 +17,16 @@ struct Season {
 
 class ItemsViewController<Item>: UITableViewController {
 	private let reuseIdentifier = "Cell"
+	private let cellClass: AnyClass
 	private let configure: (UITableViewCell, Item) -> ()
 	private var items: [Item] = []
 
-	init (items: [Item], configure: @escaping (UITableViewCell, Item) -> ()) {
+
+	init (items: [Item],
+	      cellClass: AnyClass = UITableViewCell.self,
+	      configure: @escaping (UITableViewCell, Item) -> ()) {
 		self.configure = configure
+		self.cellClass = cellClass
 		self.items = items
 		super.init(style: .plain)
 	}
@@ -31,7 +36,7 @@ class ItemsViewController<Item>: UITableViewController {
 	}
 
 	override func viewDidLoad () {
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+		tableView.register(cellClass, forCellReuseIdentifier: reuseIdentifier)
 	}
 
 	override func tableView (_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
