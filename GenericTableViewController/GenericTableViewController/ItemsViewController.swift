@@ -15,18 +15,15 @@ struct Season {
 	var title: String
 }
 
-class ItemsViewController<Item>: UITableViewController {
+class ItemsViewController<Item, Cell:UITableViewCell>: UITableViewController {
 	private let reuseIdentifier = "Cell"
-	private let cellClass: AnyClass
-	private let configure: (UITableViewCell, Item) -> ()
+	private let configure: (Cell, Item) -> ()
 	private var items: [Item] = []
 
 
 	init (items: [Item],
-	      cellClass: AnyClass = UITableViewCell.self,
-	      configure: @escaping (UITableViewCell, Item) -> ()) {
+	      configure: @escaping (Cell, Item) -> ()) {
 		self.configure = configure
-		self.cellClass = cellClass
 		self.items = items
 		super.init(style: .plain)
 	}
@@ -36,7 +33,7 @@ class ItemsViewController<Item>: UITableViewController {
 	}
 
 	override func viewDidLoad () {
-		tableView.register(cellClass, forCellReuseIdentifier: reuseIdentifier)
+		tableView.register(Cell.self, forCellReuseIdentifier: reuseIdentifier)
 	}
 
 	override func tableView (_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,7 +41,7 @@ class ItemsViewController<Item>: UITableViewController {
 	}
 
 	override func tableView (_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
+		let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! Cell
 		let item = items[indexPath.row]
 		configure(cell, item)
 		return cell

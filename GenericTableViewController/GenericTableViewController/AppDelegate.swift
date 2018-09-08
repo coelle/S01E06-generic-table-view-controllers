@@ -30,9 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		})
 
 		let seasonsVC = ItemsViewController(items: sampleSeasons,
-			cellClass: SeasonCell.self,
 			configure: {
-				cell, season in
+				(cell: SeasonCell, season) in
 				cell.textLabel?.text = season.title
 				cell.detailTextLabel?.text = "\(season.number)"
 			})
